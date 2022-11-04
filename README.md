@@ -1,4 +1,4 @@
-# Queue-Management-System
+# Queue-Management-System (React)
 
 This is a simple queue management system for a health care centre.
 
