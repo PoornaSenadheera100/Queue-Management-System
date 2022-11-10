@@ -8,11 +8,16 @@ export default function Login(){
 
     function validate(){
         axios.get(`http://localhost:8070/user/validate/${username}`).then((res)=>{
-            if (res.data[0].password === password){
-                console.log("Success");
+            if (res.data.length === 0){
+                console.log("No Account");
             }else{
-                console.log("Fail");
+                if (res.data[0].password === password){
+                    console.log("Success");
+                }else{
+                    console.log("Fail");
+                }
             }
+            
         })
     }
 
