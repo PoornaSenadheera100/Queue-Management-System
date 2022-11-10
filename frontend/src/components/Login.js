@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 export default function Login(){
 
@@ -6,12 +7,18 @@ export default function Login(){
     const [password, setPassword] = useState("");
 
     function validate(){
-        console.log(username, password);
+        axios.get(`http://localhost:8070/user/validate/${username}`).then((res)=>{
+            if (res.data[0].password === password){
+                console.log("Success");
+            }else{
+                console.log("Fail");
+            }
+        })
     }
 
     return(
         <div className="text-center container d-flex justify-content-center p-3 mb-2 bg-dark text-white" style={{width:"50%"}}>
-            <form className="form-signin" onSubmit={validate}>
+            <form className="form-signin">
                 <h2>Queue Management Portal</h2>
                 <br></br>
                 <div className="form-group">
@@ -29,7 +36,7 @@ export default function Login(){
                 </div>
                 <br></br>
                 <br></br>
-                <button style={{width:"100%"}} className="btn btn-lg btn-success btn-block" type="submit">Login</button>
+                <button style={{width:"100%"}} className="btn btn-lg btn-success btn-block" type="button" onClick={validate}>Login</button>
                 <br></br>
                 <br></br>
             </form>
