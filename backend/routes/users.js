@@ -17,4 +17,15 @@ router.route("/add").post((req, res)=>{
     })
 })
 
+// for testing
+router.route("/get").get((req, res)=>{
+    User.find().then((user)=>{
+        res.json(user);
+    }).catch((err)=>{
+        console.log(err);
+    })
+})
+
+
+
 module.exports = router;
