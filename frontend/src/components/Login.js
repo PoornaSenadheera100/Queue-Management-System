@@ -1,10 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function Login(){
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    let token = sessionStorage.getItem("qmSystemTokKey");
+
+    useEffect(()=>{
+        
+        if(token === null){
+            console.log("Token is null");
+        }else{
+            console.log("Token is here.");
+            window.location.replace(`http://localhost:3000/${token}/menu`);
+        }
+    }, [token]);
 
     function validate(){
         axios.get(`http://localhost:8070/user/validate/${username}`).then((res)=>{
@@ -13,12 +24,19 @@ export default function Login(){
             }else{
                 if (res.data[0].password === password){
                     console.log("Success");
+                    generateToken();
+                    window.location.replace(`http://localhost:3000/${token}/menu`);
                 }else{
                     console.log("Fail");
                 }
             }
-            
         })
+    }
+
+    function generateToken(){
+        let generatedToken = Math.random();
+        generatedToken = generatedToken.toString();
+        sessionStorage.setItem("qmSystemTokKey", generatedToken);
     }
 
     return(
