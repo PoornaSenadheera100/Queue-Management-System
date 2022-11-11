@@ -1,6 +1,7 @@
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Header from "./components/Header";
 import Login from "./components/Login";
+import Menu from "./components/Menu";
 
 function App() {
 
@@ -13,6 +14,10 @@ function App() {
         {
           path: "login",
           element: <Login />
+        },
+        {
+          path: ":token/menu",
+          element: <Menu/>
         }
       ]
     }
